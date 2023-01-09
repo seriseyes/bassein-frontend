@@ -17,3 +17,13 @@
     width: 100%;
     flex-wrap: wrap;
 }
+
+.chip {
+    cursor: pointer !important;
+}
+
+.came {
+    border: 2px solid green !important;
+    color: green !important;
+    font-weight: bold;
+}

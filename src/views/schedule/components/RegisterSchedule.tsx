@@ -12,6 +12,7 @@ import Row from "../../../components/layouts/Row";
 import {Days, Weeks} from "../../../models/Weeks";
 import SaveIcon from "@mui/icons-material/Save";
 import {LoadingButton} from "@mui/lab";
+import Loading from "../../../components/loading/Loading";
 
 interface Props {
     schedule?: Schedule;
@@ -33,13 +34,17 @@ export default function RegisterSchedule(props: Props) {
             }
         });
     const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [regNo, setRegNo] = useState("");
     const dao = new ScheduleDAO();
     const userDAO = new UserDAO();
 
     const save = async () => {
         setLoading(true);
-        await dao.save(state);
+        const response = await dao.save(state);
+        if (response.state === State.SUCCESS && props.onSave) {
+            props.onSave();
+        }
         setLoading(false);
     }
 
@@ -51,6 +56,7 @@ export default function RegisterSchedule(props: Props) {
     }
 
     const onAdd = async () => {
+        setIsLoading(true);
         const response = await userDAO.findCustomerByRegNo(regNo);
         if (response.state === State.SUCCESS) {
             toast.success(response.message);
@@ -60,6 +66,7 @@ export default function RegisterSchedule(props: Props) {
             });
             setRegNo("");
         }
+        setIsLoading(false);
     }
 
     const onChange = (e: any) => {
@@ -134,6 +141,8 @@ export default function RegisterSchedule(props: Props) {
                 Хадгалах
             </LoadingButton>
         }
+
+        <Loading isLoading={isLoading}/>
     </Col>
 }
 
@@ -182,7 +191,6 @@ function Plan(props: { plans: TimePer[], onChange: (plans: TimePer[]) => void })
         return <Badge badgeContent={timeProps.title} color="primary">
             <TextField
                 type="time"
-                // @ts-ignore
                 value={state[timeProps.day].value}
                 InputLabelProps={{shrink: true}}
                 inputProps={{step: 300, /*5 min*/}}

@@ -10,4 +10,12 @@ export default class ScheduleDAO extends BaseDAO {
     public async findWeekSchedule() {
         return await super.get("/schedule/week");
     }
+
+    public async markAsCame(scheduleId: number) {
+        return await super.get("/schedule/came?came=" + scheduleId);
+    }
+
+    public async findAllByCustomerRegNo(regNo: string) {
+        return await super.get("/schedule/customer?regNo=" + regNo);
+    }
 }

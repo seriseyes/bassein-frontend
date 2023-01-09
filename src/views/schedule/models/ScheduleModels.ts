@@ -12,6 +12,7 @@ export interface Schedule {
     enter: number;
     enterDates: Date[];
     plans: TimePer[];
+    created?: Date;
 }
 
 export interface TimePer {

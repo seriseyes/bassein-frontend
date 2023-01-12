@@ -14,6 +14,7 @@ export interface Customer {
     firstname: string;
     lastname: string;
     regNo: string;
+    phone: string;
     status: string;
     created?: Date;
 }

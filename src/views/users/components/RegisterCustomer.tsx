@@ -19,6 +19,7 @@ export default function RegisterCustomer(props: Props) {
         firstname: "",
         lastname: "",
         regNo: "",
+        phone: "",
         status: "ACTIVE"
     });
     const [loading, setLoading] = useState(false);
@@ -33,7 +34,7 @@ export default function RegisterCustomer(props: Props) {
         setLoading(false);
     }
 
-    return <Col className={css.wrapper} gap={"20"} style={{maxHeight: props.customer ? "375px" : "320px"}}>
+    return <Col className={css.wrapper} gap={"20"} style={{maxHeight: props.customer ? "445px" : "390px"}}>
         <h3>Үйлчлүүлэгч {props.customer ? " засварлах" : " бүртгэх"}</h3>
         <Col gap={"15"}>
             <TextField label={"Овог"} value={model.lastname} onChange={onChange} name={"lastname"}/>
@@ -42,6 +43,7 @@ export default function RegisterCustomer(props: Props) {
                 <TextField label={"Регистрийн дугаар"} value={model.regNo} onChange={onChange} name={"regNo"}
                            placeholder={"AA00112233"}/>
             </Tooltip>
+            <TextField label={"Утас"} value={model.phone} onChange={onChange} name={"phone"} type={"number"}/>
 
             {props.customer && <LoadingButton
                 loading={loading}

@@ -45,7 +45,7 @@ export default function RegisterUser(props: Props) {
 
             <Autocomplete
                 value={model.role}
-                options={["RECEPTION", "ADMIN", "ACCOUNTANT"]}
+                options={["RECEPTION", "TEACHER"]}
                 renderInput={(params) => <TextField {...params} label="Эрх"/>}
                 disableClearable={true}
                 onChange={(e, value) => setModel({...model, role: value})}

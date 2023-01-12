@@ -27,6 +27,7 @@ export default function Customers() {
         {field: "lastname", headerName: "Овог", flex: 1},
         {field: "firstname", headerName: "Нэр", flex: 1},
         {field: "regNo", headerName: "Регистрийн дугаар", flex: 1},
+        {field: "phone", headerName: "Утас", flex: 1},
         {
             field: "created", headerName: "Бүртгүүлсэн огноо", flex: 1,
             valueFormatter: (params) => new Date(params.value as number).toLocaleString(),

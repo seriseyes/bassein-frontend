@@ -11,6 +11,7 @@ import Customers from "./views/users/Customers";
 import Schedules from "./views/schedule/Schedules";
 import Report from "./views/report/Report";
 import Billing from "./views/billing/Billing";
+import SettingsTable from "./views/settings/SettingsTable";
 
 const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: "billing",
                 element: <Billing/>
+            },
+            {
+                path: "settings",
+                element: <SettingsTable/>
             },
         ]
     }

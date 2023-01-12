@@ -42,20 +42,19 @@ export default function RegisterSettings(props: Props) {
     return <Col className={css.wrapper} gap={"10"} style={{maxHeight: props.settings ? "550px" : "495px"}}>
         <strong>{props.title}</strong>
         <TextField label={"Нэр"} value={state.label} onChange={onChange} name={"label"}/>
-        {props.name === 'discount'
-            ? <TextField type={"number"} label={"Хөнгөлөх мөнгөн дүн"} value={state.value} onChange={onChange}
-                         name={"value"}/>
-            : props.name === 'swimType'
-                ? <Row style={{alignItems: "center"}}>
-                    <Switch
-                        checked={state.has}
-                        onChange={(e: any) =>setState({...state, has: e.target.checked})}
-                        inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                    <div>Багштай эсэх</div>
-                </Row>
-                : null
-        }
+
+        <TextField type={"number"} label={props.name === 'discount' ? "Хөнгөлөх мөнгөн дүн" : "Үнэ"} value={state.value} onChange={onChange}
+                   name={"value"}/>
+        {props.name === 'swimType'
+            ? <Row style={{alignItems: "center"}}>
+                <Switch
+                    checked={state.has}
+                    onChange={(e: any) => setState({...state, has: e.target.checked})}
+                    inputProps={{'aria-label': 'controlled'}}
+                />
+                <div>Багштай эсэх</div>
+            </Row>
+            : null}
         <TextField
             label={"Дэлгэрэнгүй тайлбар"}
             value={state.note}

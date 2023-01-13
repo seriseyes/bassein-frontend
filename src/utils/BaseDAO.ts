@@ -46,7 +46,7 @@ function handleError(err: AxiosError) {
     switch (err.response.status) {
         case 401:
             toast.info("Дахин нэвтэрнэ үү.");
-            window.location.href = "/login";
+            window.location.href = "/";
             return;
     }
     toast.error(err.message);

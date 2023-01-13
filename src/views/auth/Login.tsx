@@ -25,7 +25,7 @@ export default function Login() {
         if (token) {
             toast(state.username + " амжилттай нэвтэрлээ.");
             navigate("/program/users");
-        }
+        } else toast.error("Нэвтрэх нэр эсвэл нууц үг буруу байна.");
     };
 
     const onChange = (e: any) => {

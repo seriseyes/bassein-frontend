@@ -10,16 +10,15 @@ import Users from "./views/users/Users";
 import Customers from "./views/users/Customers";
 import Schedules from "./views/schedule/Schedules";
 import Report from "./views/report/Report";
-import Billing from "./views/billing/Billing";
 import SettingsTable from "./views/settings/SettingsTable";
 
 const router = createBrowserRouter([
     {
-        path: "login",
+        path: "/",
         element: <Login/>,
     },
     {
-        path: "/",
+        path: "/program",
         element: <Menu/>,
         children: [
             {
@@ -37,10 +36,6 @@ const router = createBrowserRouter([
             {
                 path: "report",
                 element: <Report/>
-            },
-            {
-                path: "billing",
-                element: <Billing/>
             },
             {
                 path: "settings",

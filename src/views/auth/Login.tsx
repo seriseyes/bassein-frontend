@@ -24,7 +24,7 @@ export default function Login() {
         const token = await login(state.username, state.password);
         if (token) {
             toast(state.username + " амжилттай нэвтэрлээ.");
-            navigate("/");
+            navigate("/program/users");
         }
     };
 

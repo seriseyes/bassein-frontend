@@ -9,7 +9,6 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import PoolOutlinedIcon from '@mui/icons-material/PoolOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import FormatListNumberedOutlinedIcon from '@mui/icons-material/FormatListNumberedOutlined';
-import RequestQuoteOutlinedIcon from '@mui/icons-material/RequestQuoteOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import {Location} from "@remix-run/router/history";
 import {Role} from "../../enums/Role";
@@ -33,11 +32,10 @@ export default function Menu() {
                     <MenuButton to={"customers"} label={"Үйлчлүүлэгчид"} icon={<PoolOutlinedIcon/>}/>
                     <MenuButton to={"schedule"} label={"Хуваарь"} icon={<CalendarMonthOutlinedIcon/>}/>
                     <MenuButton to={"report"} label={"Тайлан"} icon={<FormatListNumberedOutlinedIcon/>}/>
-                    <MenuButton to={"billing"} label={"Үнэ, багц"} icon={<RequestQuoteOutlinedIcon/>}/>
                     <MenuButton to={"settings"} label={"Тохиргоо"} icon={<DisplaySettingsIcon/>}/>
                 </>
             }
-            <MenuButton to={"login"} label={"Гарах"} icon={<LogoutOutlinedIcon/>}/>
+            <MenuButton to={"/"} label={"Гарах"} icon={<LogoutOutlinedIcon/>}/>
         </Col>
         <Outlet/>
     </Row>

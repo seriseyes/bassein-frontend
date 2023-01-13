@@ -1,0 +1,26 @@
+.button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.button:hover {
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.active {
+    background-color: rgba(83, 152, 221, 0.4);
+}
+
+.icon > * {
+}
+
+.caption {
+    font-weight: bold;
+    font-size: 1.2rem;
+}

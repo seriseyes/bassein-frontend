@@ -30,4 +30,8 @@ export default class UserDAO extends BaseDAO {
     async findAllTeacher() {
         return await super.get("/user/all/teacher");
     }
+
+    async existByRegNo(regNo: string) {
+        return await super.get("/user/exist/regNo?regNo=" + regNo);
+    }
 }

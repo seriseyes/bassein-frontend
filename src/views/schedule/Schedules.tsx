@@ -12,7 +12,6 @@ import {Day, TimeTable, TimeTableDto} from "./models/ScheduleModels";
 import {GridColDef} from "@mui/x-data-grid";
 import RegisterTimeTable from "./components/RegisterTimeTable";
 import ScheduleAction from "./components/ScheduleAction";
-import LockResetIcon from "@mui/icons-material/LockReset";
 
 export default function Schedules() {
     const [loading, setLoading] = useState(false);

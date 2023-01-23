@@ -3,7 +3,6 @@ import Row from "../../components/layouts/Row";
 import Col from "../../components/layouts/Col";
 import css from "./Menu.module.css";
 import {Button} from "@mui/material";
-import useCookie from "../../hooks/useCookie";
 import {ReactNode, useEffect} from "react";
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import PoolOutlinedIcon from '@mui/icons-material/PoolOutlined';
@@ -15,11 +14,11 @@ import {Role} from "../../enums/Role";
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 
 export default function Menu() {
-    const role: string = useCookie("role") || "none";
+    const role: string = localStorage.getItem("role") || "none";
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (role) navigate("users");
+        if (role) navigate(role === Role.RECEPTION ? "users" : "schedule");
     }, [role]);
 
     if (!role) return <div>re-login</div>

@@ -7,7 +7,7 @@ abstract class BaseDAO {
 
     public async post<T>(url: string, model: T): Promise<Response> {
         try {
-            const response = await axios.post<Response>(url, model);
+            const response = await axios.post<Response>(url, model, getHeader());
             handleResponse(response.data, "POST");
             return response.data;
         } catch (err: any) {
@@ -18,13 +18,22 @@ abstract class BaseDAO {
 
     public async get<T>(url: string): Promise<Response> {
         try {
-            const response = await axios.get<Response>(url);
+            const response = await axios.get<Response>(url, getHeader());
             handleResponse(response.data);
             return response.data;
         } catch (err: any) {
             handleError(err);
         }
         return {message: "Алдаа гарлаа", state: State.ERROR, data: {}}
+    }
+}
+
+function getHeader() {
+    return {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
     }
 }
 

@@ -5,27 +5,35 @@ import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
 import {login} from "./dao/AuthDAO";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {LoadingButton} from "@mui/lab";
 
 export default function Login() {
     const [state, setState] = useState({
         username: "",
         password: ""
     });
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         document.cookie.split(";").forEach(function (c) {
             document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
+        localStorage.clear();
         toast.dismiss();
     }, []);
 
     const onLogin = async () => {
+        setLoading(true);
         const token = await login(state.username, state.password);
         if (token) {
             toast(state.username + " амжилттай нэвтэрлээ.");
+            localStorage.setItem("token", token.token);
+            localStorage.setItem("role", token.role);
+            localStorage.setItem("username", token.username);
             navigate("/program/users");
         }
+        setLoading(false);
     };
 
     const onChange = (e: any) => {
@@ -49,10 +57,13 @@ export default function Login() {
             type={"password"}
             onKeyDown={(e) => (e.key === 'Enter') && onLogin()}
         />
-        <Button
+        <LoadingButton
             variant={"outlined"}
             endIcon={<NavigateNextOutlinedIcon/>}
             onClick={onLogin}
-        >Нэвтрэх</Button>
+            loading={loading}
+        >
+            Нэвтрэх
+        </LoadingButton>
     </div>
 }

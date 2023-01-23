@@ -94,7 +94,7 @@ export default function Schedules() {
                         style={{width: "155px"}}
                         onChange={(e, value) => setDays({...days, day: value})}
                     />
-                    : <div>Ажлын цаг дууссан байна</div>
+                    : <div>Уншиж байна...</div>
             }
         </Row>
         <Grid

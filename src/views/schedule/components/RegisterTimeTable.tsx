@@ -58,6 +58,7 @@ export default function RegisterTimeTable(props: Props) {
             toast.error("Цаг сонгоогүй байна");
             return;
         }
+        setLoading(true);
 
         const response = await dao.markAsCame(locker.schedule.id, locker.number, props.day.start, props.day.end);
         if (response.state === State.SUCCESS) {
@@ -65,6 +66,7 @@ export default function RegisterTimeTable(props: Props) {
             props.onSave && props.onSave();
             setLocker({open: false, schedule: null, number: ""});
         }
+        setLoading(false);
     }
 
     return <Col className={css.wrapper}>

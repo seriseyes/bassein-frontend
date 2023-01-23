@@ -41,7 +41,7 @@ export default function RegisterUser(props: Props) {
             <TextField label={"Овог"} value={model.lastname} onChange={onChange} name={"lastname"}/>
             <TextField label={"Нэр"} value={model.firstname} onChange={onChange} name={"firstname"}/>
             <TextField label={"Нэвтрэх нэр"} value={model.username} onChange={onChange} name={"username"}/>
-            <TextField label={"Нууц үг"} value={model.password} onChange={onChange} name={"password"}/>
+            {!props.user && <TextField label={"Нууц үг"} value={model.password} onChange={onChange} name={"password"}/>}
 
             <Autocomplete
                 value={model.role}

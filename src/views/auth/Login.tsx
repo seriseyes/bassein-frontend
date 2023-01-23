@@ -14,7 +14,7 @@ export default function Login() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.cookie.split(";").forEach(function(c) {
+        document.cookie.split(";").forEach(function (c) {
             document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
         toast.dismiss();
@@ -33,8 +33,26 @@ export default function Login() {
     }
 
     return <div className={css.wrap}>
-        <TextField label={"Нэвтрэх нэр"} value={state.username} onChange={onChange} name={"username"}/>
-        <TextField label={"Нууц үг"} value={state.password} onChange={onChange} name={"password"} type={"password"}/>
-        <Button variant={"outlined"} endIcon={<NavigateNextOutlinedIcon/>} onClick={onLogin}>Нэвтрэх</Button>
+        <TextField
+            autoFocus={true}
+            label={"Нэвтрэх нэр"}
+            value={state.username}
+            onChange={onChange}
+            name={"username"}
+            onKeyDown={(e) => (e.key === 'Enter') && onLogin()}
+        />
+        <TextField
+            label={"Нууц үг"}
+            value={state.password}
+            onChange={onChange}
+            name={"password"}
+            type={"password"}
+            onKeyDown={(e) => (e.key === 'Enter') && onLogin()}
+        />
+        <Button
+            variant={"outlined"}
+            endIcon={<NavigateNextOutlinedIcon/>}
+            onClick={onLogin}
+        >Нэвтрэх</Button>
     </div>
 }

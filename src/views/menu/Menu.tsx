@@ -27,12 +27,16 @@ export default function Menu() {
     return <Row className={css.wrapper} gap={"15"}>
         <Col className={css.side} gap={"5"}>
             {role === Role.RECEPTION
-                && <>
+                ? <>
                     <MenuButton to={"users"} label={"Хэрэглэгчид"} icon={<GroupAddOutlinedIcon/>}/>
                     <MenuButton to={"customers"} label={"Үйлчлүүлэгчид"} icon={<PoolOutlinedIcon/>}/>
                     <MenuButton to={"schedule"} label={"Хуваарь"} icon={<CalendarMonthOutlinedIcon/>}/>
                     <MenuButton to={"report"} label={"Тайлан"} icon={<FormatListNumberedOutlinedIcon/>}/>
                     <MenuButton to={"settings"} label={"Тохиргоо"} icon={<DisplaySettingsIcon/>}/>
+                </>
+                : <>
+                    <MenuButton to={"schedule"} label={"Хуваарь"} icon={<CalendarMonthOutlinedIcon/>}/>
+                    <MenuButton to={"report"} label={"Тайлан"} icon={<FormatListNumberedOutlinedIcon/>}/>
                 </>
             }
             <MenuButton to={"/"} label={"Гарах"} icon={<LogoutOutlinedIcon/>}/>

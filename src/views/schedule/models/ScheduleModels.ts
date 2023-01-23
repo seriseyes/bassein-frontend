@@ -1,5 +1,6 @@
 import {Customer, User} from "../../users/models/UserModel";
 import {Settings} from "../../../models/Settings";
+import {Status} from "../../../enums/Status";
 
 export interface Schedule {
     id?: number;
@@ -15,7 +16,11 @@ export interface Schedule {
 export interface TimeTable {
     id?: number;
     schedule: Schedule;
-    targetDate?: Date;
+    status: Status;
+    time: string;
+    start: Date;
+    end: Date;
+    locker: string;
 }
 
 export interface TimeTableDto {

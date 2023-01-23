@@ -34,4 +34,8 @@ export default class UserDAO extends BaseDAO {
     async existByRegNo(regNo: string) {
         return await super.get("/user/exist/regNo?regNo=" + regNo);
     }
+
+    async resetPassword(username: string, newPassword: string) {
+        return await super.get("/user/reset/password?username=" + username + "&newPassword=" + newPassword);
+    }
 }

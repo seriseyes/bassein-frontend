@@ -12,6 +12,7 @@ import {Day, TimeTable, TimeTableDto} from "./models/ScheduleModels";
 import {GridColDef} from "@mui/x-data-grid";
 import RegisterTimeTable from "./components/RegisterTimeTable";
 import ScheduleAction from "./components/ScheduleAction";
+import LockResetIcon from "@mui/icons-material/LockReset";
 
 export default function Schedules() {
     const [loading, setLoading] = useState(false);
@@ -29,7 +30,21 @@ export default function Schedules() {
         {field: "type", headerName: "Төрөл", flex: 1},
         {field: "schedule", headerName: "Оролт", flex: 1},
         {field: "teacher", headerName: "Багш", flex: 1},
-        {field: "targetTime", headerName: "Орсон цаг", flex: 1}
+        {field: "targetTime", headerName: "Орсон цаг", flex: 1},
+        {field: "locker", headerName: "Локер", flex: 1},
+        {
+            field: "", headerName: "Үйлдэл", flex: 1,
+            renderCell: (params) => <Row gap={"5"}>
+                <Button
+                    onClick={() => setState({open: false, timeTable: params.row.timeTable})}
+                    variant={"outlined"}
+                    color={"error"}
+                    size={"small"}
+                >
+                    Цуцлах
+                </Button>
+            </Row>
+        }
     ];
     const dao = new ScheduleDAO();
 
@@ -85,7 +100,6 @@ export default function Schedules() {
         <Grid
             columns={columns}
             rows={rows}
-            onRowClick={(row) => setState({open: false, timeTable: row.timeTable})}
         />
         <Window open={state.open} onClose={() => setState({open: false, timeTable: undefined})}>
             <RegisterTimeTable timeTable={state.timeTable}
@@ -101,7 +115,9 @@ export default function Schedules() {
                                 onSave={() => {
                                     setState({open: false, timeTable: undefined});
                                     fetchTimeTables();
-                                }}/>
+                                }}
+                                onClose={() => setState({open: false, timeTable: undefined})}
+                />
             </Window>
         }
     </Col>

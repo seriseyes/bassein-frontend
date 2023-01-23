@@ -7,8 +7,8 @@ export default class ScheduleDAO extends BaseDAO {
         return await super.post("/schedule/save", schedule);
     }
 
-    async markAsCame(scheduleId: number, start: string, end: string) {
-        return await super.get("/schedule/came?came=" + scheduleId + "&start=" + start + "&end=" + end);
+    async markAsCame(scheduleId: number, locker: string, start: string, end: string) {
+        return await super.get("/schedule/came?came=" + scheduleId + "&start=" + start + "&end=" + end + "&locker=" + locker);
     }
 
     async cancelCame(timeTableId: number) {

@@ -61,7 +61,7 @@ export default function RegisterSettings(props: Props) {
             onChange={onChange}
             name={"note"}
             multiline
-            rows={10}
+            rows={8}
         />
 
         {props.settings && <LoadingButton

@@ -12,6 +12,7 @@ import RegisterSchedule from "./RegisterSchedule";
 import CloseIcon from '@mui/icons-material/Close';
 import {toast} from "react-toastify";
 import {State} from "../../../models/Response";
+import Window from "../../../components/window/Window";
 
 interface Props {
     timeTable?: TimeTable;
@@ -24,6 +25,11 @@ export default function RegisterTimeTable(props: Props) {
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState<Schedule[]>();
     const [show, setShow] = useState(false);
+    const [locker, setLocker] = useState<{ open: boolean, schedule: null | Schedule, number: string }>({
+        open: false,
+        schedule: null,
+        number: ""
+    });
 
     const dao = new ScheduleDAO();
 
@@ -34,12 +40,17 @@ export default function RegisterTimeTable(props: Props) {
         setLoading(false);
     }
 
-    const save = async (schedule: Schedule) => {
-        if (!schedule.id) {
+    const save = async () => {
+        if (!locker.schedule) {
+            console.error("Schedule is null");
+            return;
+        }
+
+        if (!locker.schedule.id) {
             console.error("Schedule id is null");
             return;
         }
-        if (schedule.day === schedule.enter) {
+        if (locker.schedule.day === locker.schedule.enter) {
             toast.error("Уг хуваарийн эрх дууссан байна");
             return;
         }
@@ -48,10 +59,11 @@ export default function RegisterTimeTable(props: Props) {
             return;
         }
 
-        const response = await dao.markAsCame(schedule.id, props.day.start, props.day.end);
+        const response = await dao.markAsCame(locker.schedule.id, locker.number, props.day.start, props.day.end);
         if (response.state === State.SUCCESS) {
             toast.success(response.message);
             props.onSave && props.onSave();
+            setLocker({open: false, schedule: null, number: ""});
         }
     }
 
@@ -89,7 +101,11 @@ export default function RegisterTimeTable(props: Props) {
                                     <Chip
                                         key={index}
                                         label={el.enter + "/" + el.day + (el.created ? ", " + new Date(el.created).toLocaleTimeString() : "")}
-                                        onClick={() => save(el)}
+                                        onClick={() => {
+                                            if (el.day === el.enter) {
+                                                toast.error("Уг хуваарийн эрх дууссан байна");
+                                            } else setLocker({open: true, schedule: el, number: ""});
+                                        }}
                                         color={el.day === el.enter ? 'error' : 'default'}
                                     />
                                 </Tooltip>)}
@@ -106,11 +122,30 @@ export default function RegisterTimeTable(props: Props) {
                         {show ? "Болих" : "Шинээр эрх үүсгэх"}
                     </Button>
 
-                    {show && <RegisterSchedule schedule={state[0]} onSave={() => {
+                    {show && <RegisterSchedule schedule={{customer: state[0].customer, day: 0, enter: 0}} onSave={() => {
                         setShow(false);
                         fetchSchedule();
                     }}/>}
                 </Col>
         }
+        <Window open={locker.open} onClose={() => setLocker({open: false, schedule: null, number: ""})}>
+            <Col className={css.wrapper} gap={"10"}>
+                <TextField
+                    label={"Локерийн дугаар"}
+                    value={locker.number}
+                    onChange={(e: any) => setLocker({...locker, number: e.target.value})}
+                />
+                <LoadingButton
+                    loading={loading}
+                    loadingPosition="start"
+                    variant="outlined"
+                    onClick={save}
+                    onKeyDown={(e) => (e.key === 'Enter') && save()}
+                    sx={{width: "100%"}}
+                >
+                    Хадгалах
+                </LoadingButton>
+            </Col>
+        </Window>
     </Col>
 }
